@@ -1,0 +1,758 @@
+/* RESPONSIVE (MEDIA QUERIES) */
+@media (min-width: 901px) {
+    #media-modal,
+    #booking-modal,
+    #transfer-modal {
+        align-items: center;
+        padding: 20px;
+    }
+    #media-modal .modal-box,
+    #booking-modal .modal-box,
+    #transfer-modal .modal-box {
+        display: flex;
+        flex-direction: row;
+        max-width: 1100px;
+        width: 90%;
+        height: 85vh;
+        max-height: 800px;
+        margin: auto;
+        padding: 0;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 20px 60px rgba(0,0,0,.45);
+        border: none;
+        border-radius: 24px;
+    }
+    #media-modal .modal-scroll-area,
+    #booking-modal .modal-scroll-area,
+    #transfer-modal .modal-scroll-area {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        overflow: hidden;
+    }
+    #media-modal .media-stage {
+        width: 50%;
+        height: 100%;
+        flex-shrink: 0;
+        border-radius: 24px 0 0 24px;
+        background: transparent;
+        position: relative;
+        overflow: hidden;
+    }
+    .booking-stage {
+        width: 40%;
+        height: 100%;
+        flex-shrink: 0;
+        border-radius: 24px 0 0 24px;
+        background: linear-gradient(135deg, var(--primary-dark), #f4a261);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 30px;
+    }
+    .booking-stage::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.3);
+        z-index: 1;
+    }
+    .media-info {
+        width: 50%;
+        padding: 30px 30px 0 30px;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        position: relative;
+    }
+    .booking-info {
+        width: 60%;
+        padding: 30px 30px 0 30px;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        position: relative;
+    }
+    .media-actions, .booking-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: auto;
+        position: sticky;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(255,255,255,1) 85%, rgba(255,255,255,0));
+        padding: 20px 0 30px 0;
+        z-index: 10;
+    }
+    .booking-actions {
+        flex-direction: column;
+        gap: 0;
+    }
+    .booking-actions .total-bar { margin: 0 0 12px 0; }
+}
+
+@media (max-width: 900px) {
+    /* ✅ Nav píldora compacta en móvil */
+    .top-nav {
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        padding: 7px 14px;
+        top: 10px;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: calc(100% - 20px);
+        max-width: none;
+        border-radius: 50px;
+        background: rgba(255,255,255,0.98);
+        border: 1px solid rgba(255,182,201,0.8);
+        box-shadow: 0 8px 25px rgba(229,115,115,0.15);
+        gap: 10px;
+    }
+    .logo {
+        gap: 8px;
+        flex-shrink: 0;
+        z-index: 7100;
+        position: relative;
+    }
+    .logo img, .logo-fallback {
+        width: 38px;
+        height: 38px;
+        border-width: 1px;
+    }
+    .logo span { font-size: 1rem; }
+    .logo small {
+        font-size: 0.58rem;
+        letter-spacing: 1px;
+    }
+    .hamburger-btn {
+        display: flex;
+        z-index: 7100;
+        position: relative;
+        flex-shrink: 0;
+    }
+    .hamburger-btn.active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger-btn.active span:nth-child(2) { opacity: 0; }
+    .hamburger-btn.active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 260px;
+        height: 100vh;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        background: rgba(255,255,255,0.98);
+        backdrop-filter: blur(15px);
+        padding: 90px 20px 30px;
+        transition: right 0.4s cubic-bezier(0.2,0.8,0.2,1);
+        z-index: 6500;
+        box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+        margin: 0;
+        overflow-y: auto;
+        mask-image: none;
+        -webkit-mask-image: none;
+        border-radius: 0;
+        max-width: none;
+        transform: none;
+    }
+    .nav-links.active { right: 0; }
+    .nav-links a {
+        width: 100%;
+        margin: 5px 0;
+        padding: 14px 16px;
+        font-size: 1rem;
+        border-radius: 12px;
+        background: #f8f9fa;
+        border: 1px solid #eee;
+        text-align: left;
+        flex-shrink: 0;
+    }
+    .nav-links a.active {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+    }
+    .nav-links a.nav-map.active {
+        background: var(--teal);
+        border-color: var(--teal);
+    }
+    #map-container {
+        position: fixed;
+        inset: 0;
+        height: 100vh;
+        width: 100vw;
+        z-index: 0;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    #map-vignette { display: block; }
+    .ui-container {
+        height: 100vh;
+        padding: 0;
+        justify-content: flex-end;
+        pointer-events: none;
+    }
+    .main-content {
+        flex: none;
+        height: auto;
+        overflow: visible;
+        padding-bottom: 20px;
+        width: 100%;
+    }
+    .sidebar-left {
+        width: 100%;
+        flex-direction: row;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        padding: 10px 20px;
+        gap: 16px;
+        pointer-events: auto;
+        scrollbar-width: none;
+    }
+    .sidebar-left::-webkit-scrollbar { display: none; }
+    .destination-card {
+        min-width: 85vw;
+        max-width: 85vw;
+        scroll-snap-align: center;
+        margin: 0;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        border-radius: 18px;
+    }
+    .dc-top {
+        flex-direction: row;
+        align-items: center;
+    }
+    .card-media {
+        width: 85px;
+        height: 85px;
+    }
+    .card-play {
+        width: 34px;
+        height: 34px;
+    }
+    .dc-head h3 { font-size: 0.95rem; }
+    .dc-foot { padding-top: 6px; }
+    /* Redes: columna derecha con transición para ocultarse al buscar */
+    .social-dock {
+        position: fixed;
+        top: 85px;
+        right: 12px;
+        transform: none;
+        flex-direction: column;
+        gap: 10px;
+        transition: opacity .3s ease, transform .3s ease;
+    }
+    .social-dock a {
+        width: 42px;
+        height: 42px;
+    }
+    .social-dock a::before { display: none; }
+    /* Botones flotantes izquierda (columna ordenada) */
+    #explore-toggle {
+        position: fixed;
+        top: 85px;
+        left: 12px;
+        bottom: auto;
+        padding: 10px 16px;
+        font-size: .75rem;
+    }
+    #edit-mode-btn {
+        position: fixed;
+        top: 182px;
+        left: 12px;
+        bottom: auto;
+    }
+    #btn-global-add {
+        position: fixed;
+        top: 232px;
+        left: 12px;
+        bottom: auto;
+        padding: 10px 16px;
+        font-size: .75rem;
+    }
+    #toggle-ui-btn {
+        top: 282px;
+        left: 12px;
+        bottom: auto;
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+    }
+    body.no-tops .ui-container { display: flex; }
+    body.no-tops .sidebar-left { display: none; }
+    body.no-tops #explore-toggle {
+        left: 12px;
+        transform: none;
+        top: 85px;
+        bottom: auto;
+    }
+    /* ✅ NUEVO: botón 🚐 compacto arriba-izquierda (no tapa tarjetas ni redes) */
+    .map-cta-transfer {
+        position: fixed;
+        left: 12px;
+        right: auto;
+        top: 132px;
+        bottom: auto;
+        transform: none;
+        padding: 8px 14px;
+        gap: 8px;
+        border-radius: 40px;
+        box-shadow: 0 6px 18px rgba(229,115,115, 0.35);
+    }
+    .map-cta-transfer:hover {
+        transform: scale(1.05);
+    }
+    .mcta-icon { font-size: 1.6rem; }
+    .mcta-text { font-size: .64rem; }
+    .mcta-text b { font-size: .9rem; }
+    /* ✅ NUEVO: al abrir la búsqueda, se ocultan redes y flotantes (sin choques) */
+    body.search-open .social-dock,
+    body.search-open #explore-toggle,
+    body.search-open #edit-mode-btn,
+    body.search-open #btn-global-add,
+    body.search-open #toggle-ui-btn,
+    body.search-open .map-cta-transfer {
+        opacity: 0;
+        pointer-events: none;
+    }
+    /* Contenido más arriba en móvil */
+    .page-view {
+        padding: 74px 16px 20px;
+        align-items: stretch;
+    }
+    .page-inner {
+        max-width: 100%;
+        padding: 0;
+    }
+    .page-header h2 { font-size: 1.4rem; }
+    .card-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 16px;
+    }
+    .grid-card-img {
+        height: 110px;
+        font-size: 2.2rem;
+    }
+    .grid-card-body { padding: 12px; }
+    .grid-card-body h3 { font-size: .9rem; }
+    .reviews-wrap { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr 1fr; }
+    .intro-logo-wrap {
+        top: calc(50% - 150px);
+        width: 120px;
+        height: 120px;
+    }
+    .intro-logo {
+        width: 120px;
+        height: 120px;
+    }
+    .modal-overlay {
+        align-items: flex-end;
+        padding: 0;
+    }
+    #media-modal .modal-box,
+    #booking-modal .modal-box,
+    #transfer-modal .modal-box {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 92vh;
+        max-height: 92vh;
+        padding: 0;
+        border-radius: 24px 24px 0 0;
+        border: none;
+        animation: slideUpSheet .4s cubic-bezier(0.2,0.8,0.2,1);
+        position: relative;
+        overflow: hidden;
+    }
+    #media-modal .modal-scroll-area,
+    #booking-modal .modal-scroll-area,
+    #transfer-modal .modal-scroll-area {
+        display: block !important;
+        flex: 1;
+        width: 100%;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    #media-modal .media-stage {
+        width: 100%;
+        height: 35vh;
+        min-height: 220px;
+        border-radius: 24px 24px 0 0;
+        position: relative;
+        flex-shrink: 0;
+    }
+    .booking-stage {
+        width: 100%;
+        height: 25vh;
+        min-height: 180px;
+        border-radius: 24px 24px 0 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        position: relative;
+        flex-shrink: 0;
+    }
+    .media-carousel { border-radius: 24px 24px 0 0; }
+    .media-info, .booking-info {
+        width: 100%;
+        padding: 20px;
+        padding-bottom: 100px !important;
+    }
+    .media-actions, .booking-actions {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 15px 20px;
+        background: rgba(255,255,255,0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 -4px 15px rgba(0,0,0,0.05);
+        z-index: 100;
+        display: flex;
+        gap: 10px;
+        border-radius: 0;
+    }
+    .transfer-block, .transfer-block.reverse {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .transfer-img-wrap {
+        width: 100%;
+        aspect-ratio: 16/9;
+        min-height: 200px;
+    }
+    .transfer-text {
+        width: 100%;
+        padding: 20px;
+        font-size: 0.95rem;
+    }
+    .transfer-text h3 { font-size: 1.4rem; }
+    /* Traslados: fila en columna y banner a ancho completo */
+    .tf-dest-layout {
+        flex-direction: column;
+        gap: 0;
+    }
+    .tf-cta-card {
+        flex: none;
+        width: 100%;
+        margin: 0 0 24px;
+    }
+    /* Pasajeros en una columna */
+    .tf-pax-grid {
+        grid-template-columns: 1fr;
+    }
+    /* Playas más estrechas en móvil */
+    .beach-card {
+        flex: 0 0 260px;
+        width: 260px;
+    }
+}
+
+@media (min-width: 901px) {
+    .booking-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        position: sticky;
+        bottom: 0;
+        z-index: 10;
+        background: linear-gradient(to top, rgba(255,255,255,1) 85%, rgba(255,255,255,0));
+        padding: 20px 0 24px 0;
+        margin-top: auto;
+    }
+    .booking-actions .total-bar { margin: 0 0 12px 0; }
+}
+
+@media (max-width: 900px) {
+    .booking-actions {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        padding: 12px 16px calc(14px + env(safe-area-inset-bottom));
+        background: rgba(255,255,255,0.97);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 -4px 15px rgba(0,0,0,0.08);
+    }
+    .booking-actions .total-bar { margin: 0 0 10px 0; }
+    .booking-info { padding-bottom: 160px !important; }
+}
+
+@media (min-width: 901px) {
+    #transfer-modal { align-items: center; padding: 20px; }
+    #transfer-modal .modal-box {
+        display: flex; flex-direction: row;
+        max-width: 1100px; width: 90%; height: 85vh; max-height: 800px;
+        margin: auto; padding: 0; overflow: hidden;
+        background: #fff; border: none; border-radius: 24px;
+        box-shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+    #transfer-modal .modal-scroll-area {
+        display: flex; flex-direction: row;
+        width: 100%; height: 100%; padding: 0; overflow: hidden;
+    }
+    #transfer-modal .booking-stage {
+        width: 40%; height: 100%; flex-shrink: 0;
+        border-radius: 24px 0 0 24px;
+    }
+    #transfer-modal .booking-info {
+        width: 60%; padding: 30px 30px 0 30px;
+        display: flex; flex-direction: column; overflow-y: auto; position: relative;
+    }
+    #transfer-modal .booking-actions {
+        position: sticky; bottom: 0; left: 0; right: 0;
+        display: flex; flex-direction: column; gap: 0; margin-top: auto;
+        padding: 20px 0 30px 0; z-index: 10;
+        background: linear-gradient(to top, rgba(255,255,255,1) 85%, rgba(255,255,255,0));
+    }
+    #transfer-modal .booking-actions .total-bar,
+    #transfer-modal .booking-actions .tf-quote-bar { margin: 0 0 12px 0; }
+}
+
+@media (max-width: 900px) {
+    #transfer-modal .modal-box {
+        display: flex; flex-direction: column;
+        width: 100%; height: 92vh; max-height: 92vh; padding: 0;
+        border: none; border-radius: 24px 24px 0 0;
+        position: relative; overflow: hidden;
+        animation: slideUpSheet .4s cubic-bezier(0.2,0.8,0.2,1);
+    }
+    #transfer-modal .modal-scroll-area {
+        display: block !important; flex: 1; width: 100%;
+        overflow-y: auto; -webkit-overflow-scrolling: touch;
+    }
+    #transfer-modal .booking-stage {
+        width: 100%; height: 25vh; min-height: 180px;
+        border-radius: 24px 24px 0 0; flex-shrink: 0;
+    }
+    #transfer-modal .booking-info { width: 100%; padding: 20px; padding-bottom: 170px !important; }
+    #transfer-modal .booking-actions {
+        position: absolute; bottom: 0; left: 0; right: 0; z-index: 100;
+        display: flex; flex-direction: column; gap: 0;
+        padding: 12px 16px calc(14px + env(safe-area-inset-bottom));
+        background: rgba(255,255,255,.97); backdrop-filter: blur(10px);
+        box-shadow: 0 -4px 15px rgba(0,0,0,.08);
+    }
+}
+
+@media (max-width: 900px) {
+    .tf-slide { flex-direction: column; }
+    .tf-slide-visual { flex: 0 0 160px; min-height: 160px; }
+    .tf-trust-list { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 900px) {
+    .tf-slide-layout { flex-direction: column; }
+    .tf-cta-card { flex: none; width: 100%; }
+}
+
+@media (max-width: 900px) { .tf-pax-grid { grid-template-columns: 1fr; } }
+
+@media (max-width: 900px) {
+    .beach-card { flex: 0 0 240px; width: 240px; }
+}
+
+/* 🔍 Búsqueda global en móvil (lupita compacta) */
+@media (max-width: 900px) {
+    .nav-search-btn {
+        width: 36px;
+        height: 36px;
+        font-size: .9rem;
+    }
+    .global-search-bar {
+        top: 66px;
+        width: calc(100% - 20px);
+    }
+    .global-search-bar .glass-input {
+        padding: 11px 18px;
+        font-size: .85rem;
+    }
+    .gsb-close {
+        width: 36px;
+        height: 36px;
+    }
+}
+/* 🔍 Lupita agrupada y compacta en móvil */
+@media (max-width: 900px) {
+    .nav-actions { gap: 6px; }
+    .nav-search-btn::after { inset: -4px; }
+}
+/* ==========================================================================
+🎨 TEMA AGENCIA DE TOURS — override final (océano + atardecer)
+========================================================================== */
+/* Intro: de rosado a tonos marinos cálidos */
+#intro-bg { background: radial-gradient(1200px 700px at 50% 42%, #f7fbfb 0%, #e9f4f2 48%, #dfeef0 100%); }
+.intro-tag { color: #0f7fa0; text-shadow: 0 0 18px rgba(15,127,160,.35); }
+.intro-line { background: linear-gradient(90deg, transparent, #f77f00, transparent); }
+.intro-logo { box-shadow: 0 10px 40px rgba(15,127,160,.30), 0 0 60px rgba(247,127,0,.25); }
+.logo-ring { border-color: rgba(15,127,160,.45); }
+.logo img { box-shadow: 0 0 14px var(--pink-soft), 0 0 30px rgba(15,127,160,.25); }
+/* Tintes coral → naranja atardecer / azul océano */
+.page-header { border-bottom-color: rgba(247,127,0,.25); }
+.section-head::after { background: linear-gradient(90deg, rgba(247,127,0,.35), transparent); }
+.fchip { border-color: rgba(247,127,0,.45); }
+.zone-head { background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(15,127,160,.10)); }
+.zone-count { color: #0b6e8f; background: rgba(15,127,160,.12); }
+.chip-cat { background: rgba(247,127,0,.10); color: #c05f00; border-color: rgba(247,127,0,.25); }
+.chip-cat.destinations { background: rgba(15,127,160,.10); color: #0b6e8f; border-color: rgba(15,127,160,.25); }
+.pkg-place { background: rgba(15,127,160,.10); color: #0b6e8f; border-color: rgba(15,127,160,.25); }
+.review-tour { background: rgba(15,127,160,.12); color: #0b6e8f; }
+.total-bar { background: linear-gradient(135deg, rgba(247,127,0,.10), rgba(255,183,3,.15)); }
+.rev-avg { background: linear-gradient(135deg, rgba(247,127,0,.10), rgba(255,183,3,.15)); }
+.tf-quote-bar span, .tf-quote-bar strong { color: #0b6e8f; }
+.nav-search-btn { border-color: rgba(247,127,0,.45); background: linear-gradient(135deg, #ffffff, #fff1e0); }
+.nav-search-btn::after { border-color: rgba(247,127,0,.45); }
+.beach-card.beach-custom { border-color: rgba(247,127,0,.5); background: linear-gradient(160deg, rgba(247,127,0,.08), rgba(255,255,255,.95)); }
+.map-cta-transfer { box-shadow: 0 10px 25px rgba(247,127,0,.35); }
+/* Nav móvil: borde rosado → océano */
+@media (max-width: 900px) {
+    .top-nav { border-color: rgba(15,127,160,.35); box-shadow: 0 8px 25px rgba(15,127,160,.15); }
+}
+/* ==========================================================================
+🎨 AJUSTE v2 — TOQUE VERDE SELVA + INTRO A JUEGO
+========================================================================== */
+:root {
+    --teal: #0e9f6e;   /* verde selva (secundario: traslados, chips, botones ghost) */
+    --bg: #e4f3ee;     /* bruma verde suave de fondo */
+}
+/* Glows y pulso con mezcla atardecer + selva */
+.glow { box-shadow: 0 8px 32px rgba(0,0,0,.08), 0 0 20px rgba(14,159,110,.30); }
+.glow::after {
+    background: linear-gradient(120deg, rgba(255,255,255,1), #f77f00, rgba(255,255,255,.9), #0e9f6e, rgba(255,255,255,1));
+}
+@keyframes pulseGlow {
+    0%   { box-shadow: 0 0 0 0 rgba(14,159,110,.55); }
+    70%  { box-shadow: 0 0 0 14px rgba(14,159,110,0); }
+    100% { box-shadow: 0 0 0 0 rgba(14,159,110,0); }
+}
+/* Tintes océano → verde selva */
+.zone-count, .pkg-place, .review-tour, .tf-swipe-hint, .tf-see-all,
+.tf-quote-bar span, .tf-quote-bar strong, .nav-links a.nav-map, .btn-ghost {
+    color: #0a7a55;
+}
+.chip-cat.destinations, .zone-count, .pkg-place, .review-tour {
+    background: rgba(14,159,110,.12);
+    border-color: rgba(14,159,110,.28);
+}
+.tf-dots i, .beach-dots i { background: rgba(14,159,110,.35); }
+.tf-dots i.on, .beach-dots i.on { background: var(--teal); }
+.tf-nav-btn { box-shadow: 0 2px 10px rgba(0,0,0,.08), 0 0 12px rgba(14,159,110,.30); }
+.tf-nav-btn:hover { box-shadow: 0 0 20px rgba(14,159,110,.5); }
+.tf-cta-card {
+    border-color: rgba(14,159,110,.40);
+    background: linear-gradient(160deg, rgba(255,255,255,.95), rgba(14,159,110,.14));
+}
+.tf-book-mini:hover, .tf-cta-mini:hover { box-shadow: 0 0 26px rgba(14,159,110,.6); }
+.btn-ghost { border-color: var(--teal); }
+.btn-ghost:hover { background: var(--teal); color: #fff; }
+/* ✨ INTRO: letras y detalles a juego (atardecer + selva) */
+.intro-tag { color: #0e9f6e; text-shadow: 0 0 18px rgba(14,159,110,.35); }
+.intro-line { background: linear-gradient(90deg, transparent, #f77f00, #0e9f6e, transparent); }
+.logo-ring { border-color: rgba(14,159,110,.45); }
+.intro-logo { box-shadow: 0 10px 40px rgba(14,159,110,.30), 0 0 60px rgba(247,127,0,.25); }
+/* Nav móvil: borde verde */
+@media (max-width: 900px) {
+    .top-nav { border-color: rgba(14,159,110,.35); box-shadow: 0 8px 25px rgba(14,159,110,.15); }
+}
+/* ==========================================================================
+📱 PASO 4: PAQUETES EN CARRUSEL HORIZONTAL (MÓVIL)
+========================================================================== */
+.tours-carousel-nav {
+    display: none;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    margin: 2px 0 10px;
+}
+.tours-hint { display: none; }
+@media (max-width: 900px) {
+    #tours-content .card-grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        gap: 14px;
+        padding: 12px 4px 20px;
+        width: 100%;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    #tours-content .card-grid::-webkit-scrollbar { display: none; }
+    #tours-content .grid-card {
+        flex: 0 0 76vw;
+        max-width: 76vw;
+        scroll-snap-align: center;
+    }
+    #tours-content .grid-card-img { height: 150px; font-size: 2.6rem; }
+    #tours-content .grid-card-body p { -webkit-line-clamp: 3; line-clamp: 3; }
+    .tours-carousel-nav { display: flex; }
+    .tours-hint { display: inline-flex; }
+}
+/* ==========================================================================
+🏁 PASO 5 FINAL: PLAYAS SUBIDAS + QUIÉNES SOMOS PULIDO
+========================================================================== */
+/* 🏖️ Playas: cabecera compacta, contenido más arriba */
+#page-beaches .page-header { margin-bottom: 10px; padding-bottom: 8px; }
+#page-beaches .page-header p { margin-top: 2px; }
+#page-beaches .beach-section { margin: 0 0 24px; }
+#page-beaches .beach-head { margin-bottom: 6px; }
+#page-beaches .beach-scroller { padding-top: 6px; }
+/* 🏛️ Quiénes Somos: tipografía y espaciados profesionales */
+#page-about .about-intro { padding: 28px 32px; margin-bottom: 20px; border-radius: 18px; }
+#page-about .about-intro h3 { font-size: 1.35rem; letter-spacing: .5px; }
+#page-about .about-intro p { max-width: 760px; margin: 0 auto; font-size: .92rem; }
+#page-about .about-badges {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 0 28px;
+}
+#page-about .about-badges span {
+    background: #fff;
+    border: 1px solid rgba(14,159,110,.25);
+    color: #0a7a55;
+    font-size: .72rem;
+    font-weight: 800;
+    padding: 7px 14px;
+    border-radius: 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,.05);
+}
+#page-about .transfer-block { gap: 26px; }
+#page-about .transfer-text { padding: 30px 34px; }
+#page-about .transfer-text h3 { font-size: 1.25rem; }
+#page-about .transfer-text h4 { font-size: .95rem; }
+#page-about .transfer-text p { font-size: .92rem; }
+#page-about .transfer-img-wrap { min-height: 280px; border-radius: 18px; }
+/* 📱 Ajustes móviles */
+@media (max-width: 900px) {
+    #page-beaches { padding-top: 70px; }
+    #page-beaches .beach-head small { display: none; }
+    #page-beaches .beach-head h3 { font-size: 1.1rem; }
+    #page-about { padding-top: 70px; }
+    #page-about .about-intro { padding: 20px 18px; }
+    #page-about .about-intro h3 { font-size: 1.15rem; }
+    #page-about .about-badges span { font-size: .66rem; padding: 6px 12px; }
+    #page-about .transfer-text { padding: 20px; }
+    #page-about .transfer-img-wrap { min-height: 200px; }
+}

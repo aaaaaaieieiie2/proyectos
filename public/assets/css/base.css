@@ -1,0 +1,162 @@
+/* ==========================================================================
+VARIABLES GLOBALES Y RESET — 🎨 TEMA AGENCIA DE TOURS (océano + atardecer)
+========================================================================== */
+:root {
+    --primary: #f77f00;
+    --primary-dark: #d96a00;
+    --pink: #ffb703;
+    --pink-soft: rgba(247,127,0,.40);
+    --teal: #0f7fa0;
+    --bg: #e3f2f4;
+    --text: #2b3a42;
+    --glass: rgba(255,255,255,.78);
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+body {
+    background: var(--bg);
+    overflow: hidden;
+    color: var(--text);
+}
+button {
+    font-family: inherit;
+}
+/* ==========================================================================
+EFECTOS GLOW Y ANIMACIONES GLOBALES
+========================================================================== */
+.glow {
+    position: relative;
+    overflow: visible;
+    box-shadow: 0 8px 32px rgba(0,0,0,.08), 0 0 20px rgba(247,127,0,.28);
+}
+.glow::after {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: inherit;
+    padding: 3px;
+    pointer-events: none;
+    z-index: -1;
+    background: linear-gradient(120deg, rgba(255,255,255,1), #f77f00, rgba(255,255,255,.9), #0f7fa0, rgba(255,255,255,1));
+    background-size: 300% 300%;
+    animation: borderFlow 4s linear infinite;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+}
+@keyframes borderFlow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+}
+@supports not ((-webkit-mask-composite: xor) or (mask-composite: exclude)) {
+    .glow::after {
+        background: none;
+        animation: none;
+        padding: 0;
+        inset: 0;
+        box-shadow: 0 0 0 3px #f77f00, 0 0 20px rgba(247,127,0,.5);
+    }
+}
+.reveal {
+    opacity: 0;
+    transform: translateY(30px) scale(0.98);
+    transition: opacity .6s ease, transform .6s cubic-bezier(0.2,0.8,0.2,1);
+}
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+@keyframes floatDope {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+@keyframes logoPop {
+    from { opacity: 0; transform: scale(.2) rotate(-180deg); }
+    to { opacity: 1; transform: scale(1) rotate(0); }
+}
+@keyframes pageInSmoother {
+    from { opacity: 0; transform: translateY(30px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes slideUpSheet {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+@keyframes ledRotate {
+    0% { background-position: 100% 0; }
+    100% { background-position: -100% 100%; }
+}
+@keyframes kenBurns {
+    from { transform: scale(1) translateY(0); }
+    to { transform: scale(1.04) translateY(-1%); }
+}
+/* ==========================================================================
+EFECTO LED GIRATORIO (ÁMBAR/BLANCO) — media, reserva y traslado
+========================================================================== */
+#media-modal .modal-box::after,
+#booking-modal .modal-box::after,
+#transfer-modal .modal-box::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 100;
+    padding: 4px;
+    background: linear-gradient(135deg, rgba(255,255,255,0) 20%, #ffffff 40%, #f77f00 50%, #ffffff 60%, rgba(255,255,255,0) 80%);
+    background-size: 300% 300%;
+    animation: ledRotate 3s linear infinite;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    box-shadow: inset 0 0 15px rgba(247,127,0,.45);
+}
+/* ==========================================================================
+6) ANIMACIÓN PULSE (botones guía) + HINT PARPADEANTE
+========================================================================== */
+@keyframes pulseGlow {
+    0%   { box-shadow: 0 0 0 0 rgba(15,127,160,.55); }
+    70%  { box-shadow: 0 0 0 14px rgba(15,127,160,0); }
+    100% { box-shadow: 0 0 0 0 rgba(15,127,160,0); }
+}
+.pulse { animation: pulseGlow 1.8s ease-out infinite; }
+@keyframes pulseGlowPink {
+    0%   { box-shadow: 0 0 0 0 rgba(247,127,0,.55); }
+    70%  { box-shadow: 0 0 0 14px rgba(247,127,0,0); }
+    100% { box-shadow: 0 0 0 0 rgba(247,127,0,0); }
+}
+.pulse-pink { animation: pulseGlowPink 1.8s ease-out infinite; }
+@keyframes hintBlink {
+    0%, 100% { opacity: .35; transform: translateX(0); }
+    50%      { opacity: 1;   transform: translateX(4px); }
+}
+.tf-swipe-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .72rem;
+    font-weight: 700;
+    color: #0b6e8f;
+    animation: hintBlink 1.6s ease-in-out infinite;
+}
+.tf-swipe-hint.center { justify-content: center; width: 100%; }
+/* Botón "Ver todos" */
+.tf-see-all {
+    border: 1.5px dashed var(--teal);
+    background: rgba(15,127,160,.08);
+    color: #0b6e8f;
+    font-size: .72rem;
+    font-weight: 800;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: .25s;
+}
+.tf-see-all:hover { background: var(--teal); color: #fff; }
