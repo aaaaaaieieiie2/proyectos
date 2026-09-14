@@ -8,17 +8,17 @@
 
 // ── Interruptor de backend ───────────────────────────────────────────────────
 // false = plantilla estática (doble clic, sin PHP ni BD). Guardados en memoria.
-// true  = conectado a api.php (Fase 2: BD + sesión + CSRF).
+// true = conectado a api.php (Fase 2: BD + sesión + CSRF).
 const BACKEND_ENABLED = true;
 
 // ── Datos de contacto globales ───────────────────────────────────────────────
-const COMPANY_WA = '50760000000';            // solo números, sin + ni espacios
+const COMPANY_WA = '50760000000'; // solo números, sin + ni espacios
 const COMPANY_MAIL = 'bookings@panamaluxury.pa';
 const LOGO_URL = 'assets/img/logo.png';
 
 // ============================================================================
-// [ BLOQUE 1 ] TOURS  (lugar = parada interna | package = producto vendible)
-// 📷 IMÁGENES: URLs públicas.  🎥 VIDEO: solo URL (YouTube/Vimeo/.mp4 público).
+// [ BLOQUE 1 ] TOURS (lugar = parada interna | package = producto vendible)
+// 📷 IMÁGENES: URLs públicas. 🎥 VIDEO: solo URL (YouTube/Vimeo/.mp4 público).
 // ============================================================================
 const INITIAL_TOURS = [
 // ─── LUGARES (paradas) ───
@@ -40,7 +40,7 @@ const INITIAL_TOURS = [
 // [ BLOQUE 1B ] TRANSFERS — TRASLADO ÚNICO NACIONAL
 // ✅ SIN Canal ni Valle como tarjetas separadas (pedido del cliente).
 // ✅ SIN precio público: la tarifa se cotiza al reservar por WhatsApp.
-//    (price_one_way/round_trip quedan solo como referencia interna del CMS.)
+// (price_one_way/round_trip quedan solo como referencia interna del CMS.)
 // ============================================================================
 const INITIAL_TRANSFERS = [
 { "id": "tf-nacional", "name": "Aeropuerto ↔ Hoteles en Ciudad de Panamá", "origin": "Aeropuerto de Tocumen", "destination": "Cualquier hotel en la ciudad", "price_one_way": 35, "price_round_trip": 65, "max_passengers": 8, "emoji": "🛬", "price_basis": "per_vehicle", "desc": "Traslado privado desde el Aeropuerto Internacional de Tocumen hasta la puerta de tu hotel en la ciudad. Sin esperas y con conductor profesional." },
@@ -108,7 +108,7 @@ const INITIAL_SOCIAL = {
 // ============================================================================
 // [ BLOQUE 6 ] BLOQUES ZIG-ZAG DE TRASLADOS
 // ✅ Vacíos por decisión del cliente: la información vieja se eliminó.
-//    Se agregan nuevos bloques desde el CMS (módulo "Traslados"), solo con URL.
+// Se agregan nuevos bloques desde el CMS (módulo "Traslados"), solo con URL.
 // ============================================================================
 const INITIAL_SERVICES = [];
 

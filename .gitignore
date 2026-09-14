@@ -1,1 +1,67 @@
-(empty)
+```
+# Compiled and build artifacts
+*.pyc
+__pycache__/
+*.o
+*.obj
+*.class
+*.exe
+*.dll
+*.so
+*.a
+*.out
+
+# Dependencies
+node_modules/
+venv/
+.venv/
+.env
+.env.local
+.env.*
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+*.swo
+
+# Editors
+.vscode/
+.idea/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Coverage
+coverage/
+htmlcov/
+.coverage
+
+# Distribution / build artifacts
+dist/
+build/
+target/
+.gradle/
+
+# Python specific
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+
+# PHP specific
+vendor/
+composer.lock
+
+# Web assets (if generated)
+public/assets/dist/
+public/build/
+
+# Cache directories
+.cache/
+.mypy_cache/
+.pytest_cache/
+```
