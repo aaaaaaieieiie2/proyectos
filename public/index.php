@@ -14,6 +14,8 @@ if (!$isAdmin) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content="FiliTour Panamá 💬 Tours, paquetes turísticos, playas y traslados privados en todo el país." />
 <title>FiliTour Panamá Tourism</title>
+<!-- 🛡️ Token CSRF para las peticiones AJAX del CMS -->
+<meta name="csrf-token" content="<?= $isAdmin ? htmlspecialchars(\App\Security\Csrf::generate()) : '' ?>" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <link rel="stylesheet" href="assets/css/base.css" />
 <link rel="stylesheet" href="assets/css/components.css" />
