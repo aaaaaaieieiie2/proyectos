@@ -33,7 +33,6 @@ class ApiController {
     }
 
     private static function createBooking($input) {
-        file_put_contents(__DIR__ . '/../../debug.log', date('Y-m-d H:i:s') . " INPUT: " . print_r($input, true) . "\n", FILE_APPEND);
         try {
             $db = Database::getInstance();
             $stmt = $db->prepare('INSERT INTO bookings (booking_type, reference_id, client_name, client_email, client_phone, travel_date, pax_adults, pax_kids, total_price, client_notes, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, \'pending\')');
@@ -75,8 +74,8 @@ class ApiController {
             ]);
             return ['status' => 'success', 'booking_id' => $db->lastInsertId()];
         } catch (\Exception $e) {
-            file_put_contents(__DIR__ . '/../../debug.log', date('Y-m-d H:i:s') . " ERROR: " . $e->getMessage() . "\n", FILE_APPEND);
-            return ['status' => 'error', 'message' => $e->getMessage()];
+            error_log("Booking Error: " . $e->getMessage());
+            return ['status' => 'error', 'message' => 'Error al procesar la reserva'];
         }
     }
 
@@ -156,8 +155,8 @@ class ApiController {
             return ['status' => 'success', 'message' => 'Tours sincronizados correctamente'];
         } catch (\Exception $e) {
             if (isset($db)) $db->rollBack();
-            file_put_contents(__DIR__ . '/../../debug.log', date('Y-m-d H:i:s') . " SYNC ERROR: " . $e->getMessage() . "\n", FILE_APPEND);
-            return ['status' => 'error', 'message' => $e->getMessage()];
+            error_log("Sync Tours Error: " . $e->getMessage());
+            return ['status' => 'error', 'message' => 'Error al sincronizar tours'];
         }
     }
 

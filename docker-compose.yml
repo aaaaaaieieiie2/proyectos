@@ -28,28 +28,34 @@ services:
     image: mariadb:10.6
     container_name: filitour_mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
       MYSQL_DATABASE: filitour_db
-    ports:
-      - "3307:3306"
+    secrets:
+      - db_root_password
+    # NOTA: En producción, NO expongas el puerto de la BD al público
+    # ports:
+    #   - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
       - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
     networks:
       - filitour_network
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: filitour_pma
-    environment:
-      PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: root
-    ports:
-      - "8081:80"
-    depends_on:
-      - db
-    networks:
-      - filitour_network
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin
+  #   container_name: filitour_pma
+  #   environment:
+  #     PMA_HOST: db
+  #     MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+  #   secrets:
+  #     - db_root_password
+  #   # NOTA: En producción, COMENTA o ELIMINA este servicio para no exponer phpMyAdmin
+  #   ports:
+  #     - "8081:80"
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - filitour_network
 
 networks:
   filitour_network:
@@ -57,4 +63,8 @@ networks:
 
 volumes:
   db_data:
+
+secrets:
+  db_root_password:
+    file: ./secrets/db_root_password.txt
 
