@@ -23,7 +23,7 @@ const endD = () => { isDrag = false; };
 if (editHelp) { editHelp.addEventListener('mousedown', startD); editHelp.addEventListener('touchstart', startD, { passive: false }); }
 document.addEventListener('mousemove', doD); document.addEventListener('touchmove', doD, { passive: false });
 document.addEventListener('mouseup', endD); document.addEventListener('touchend', endD);
-document.addEventListener('input', e => { const k = e.target.dataset ? e.target.dataset.txt : null; if (k) TEXTS[k] = e.target.textContent; });
+document.addEventListener('input', e => { const k = e.target.dataset ? e.target.dataset.txt : null; if (k) { TEXTS[k] = e.target.textContent; saveTexts(); } });
 document.addEventListener('click', e => { if (document.body.classList.contains('edit-mode') && e.target.closest('[data-txt]') && !e.target.closest('.nav-links') && !e.target.closest('.btn-primary')) { e.preventDefault(); e.stopPropagation(); } }, true);
 
 // ── Borrado / edición en modo edición ───────────────────────────────────────
