@@ -54,8 +54,8 @@ const saveServices = async () => apiPost('sync_services', 'data', SERVICES);
 const saveAboutBlocks = async () => apiPost('sync_about', 'data', ABOUT_BLOCKS);
 const saveZones = async () => apiPost('sync_zones', 'data', ZONES);
 const saveStyles = async () => apiPost('sync_styles', 'data', STYLES);
-const saveTexts = async () => apiPost('sync_texts', 'data', TEXTS);
-const saveSocial = async () => apiPost('sync_social', 'data', SOCIAL);
+const saveTexts = async () => apiPost('sync_texts', 'texts', TEXTS);
+const saveSocial = async () => apiPost('sync_social', 'social', SOCIAL);
 function moveItemInArray(arr, idx, dir) { if (idx < 0 || idx >= arr.length) return false; const n = idx + dir; if (n < 0 || n >= arr.length) return false; const t = arr[idx]; arr[idx] = arr[n]; arr[n] = t; return true; }
 // ── Menú móvil ──────────────────────────────────────────────────────────────
 const mobileBtn = $('mobile-menu-btn'), navLinksObj = $('main-nav-links');

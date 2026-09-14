@@ -20,7 +20,8 @@ class ApiController {
 
     private static function syncGeneric(array $input, string $setting_key): array
     {
-        $data = $input['data'] ?? [];
+        // Soportar múltiples nombres de clave para compatibilidad
+        $data = $input['data'] ?? $input['texts'] ?? $input['social'] ?? $input['zones'] ?? $input['styles'] ?? $input['services'] ?? $input['about'] ?? [];
         try {
             $db = Database::getInstance();
             $stmtCache = $db->prepare("INSERT INTO settings (setting_key, setting_value, setting_group) VALUES (?, ?, 'config') ON DUPLICATE KEY UPDATE setting_value = ?");
