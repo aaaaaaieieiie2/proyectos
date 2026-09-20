@@ -11,7 +11,9 @@ class Headers {
         header("Cache-Control: post-check=0, pre-check=0", false);
         header("Pragma: no-cache");
         // CSP Estricto adaptado a lo que usa tu front-end
-        header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com https://translate.google.com https://translate.googleapis.com; style-src 'self' 'unsafe-inline' https://unpkg.com https://cdnjs.cloudflare.com https://translate.googleapis.com; img-src 'self' data: https:; connect-src 'self' https://cdnjs.cloudflare.com https://unpkg.com https://translate.googleapis.com; font-src 'self' data: https:; frame-src 'self' https://www.youtube.com https://player.vimeo.com https://www.instagram.com;");
+                header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://unpkg.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://cdnjs.cloudflare.com https://unpkg.com https://static.cloudflareinsights.com; font-src 'self' data: https:; frame-src 'self' https://www.youtube.com https://player.vimeo.com https://www.instagram.com;");
+        header("Strict-Transport-Security: max-age=15552000; includeSubDomains");
+        header("Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=(), usb=(), interest-cohort=()");
     }
 }
 

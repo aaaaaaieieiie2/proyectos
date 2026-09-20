@@ -45,9 +45,48 @@ class StatsController {
     }
     
     /**
+     * Verifica si el User-Agent corresponde a un bot conocido
+     */
+    private static function isBot() {
+        $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+        
+        if (empty($userAgent)) {
+            return true;
+        }
+        
+        $botPatterns = [
+            'bot', 'crawl', 'spider', 'slurp', 'search', 'fetch', 'curl', 'wget', 'postman', 
+            'yandex', 'yahoo', 'baidu', 'duckduckgo', 'scanner', 'sqlmap', 'nmap', 'nikto',
+            'python', 'java', 'go-http-client', 'urllib', 'libwww-perl', 'masscan', 'zgrab'
+        ];
+        
+        foreach ($botPatterns as $pattern) {
+            if (stripos($userAgent, $pattern) !== false) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    /**
      * Registra una visita nueva (Se llamará silenciosamente desde el frontend)
      */
     public static function logVisit() {
+        // Ignorar bots
+        if (self::isBot()) {
+            return;
+        }
+
+        // Evitar contar la misma sesión repetidamente
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (isset($_SESSION['visit_logged'])) {
+            return;
+        }
+        $_SESSION['visit_logged'] = true;
+
         $db = Database::getInstance();
         $sql = "INSERT INTO settings (setting_key, setting_value, setting_group) 
                 VALUES ('site_visits', '1', 'config') 
@@ -55,4 +94,5 @@ class StatsController {
         $db->query($sql);
     }
 }
+
 

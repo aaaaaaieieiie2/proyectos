@@ -22,7 +22,7 @@ class AntiBruteForce {
         if (file_exists($file)) {
             $data = json_decode(file_get_contents($file), true);
             
-            if ($data['attempts'] >= self::$maxAttempts) {
+            if (!empty($data) && isset($data['attempts']) && $data['attempts'] >= self::$maxAttempts) {
                 $timePassed = time() - $data['last_attempt'];
                 
                 if ($timePassed < self::$lockoutTime) {
@@ -54,11 +54,18 @@ class AntiBruteForce {
         
         $file = $dir . "/{$hash}.json";
         
-        $data = file_exists($file) ? json_decode(file_get_contents($file), true) : ['attempts' => 0];
+        $data = [];
+        if (file_exists($file)) {
+            $data = json_decode(file_get_contents($file), true) ?? [];
+        }
+        if (empty($data)) {
+            $data = ['attempts' => 0];
+        }
+        
         $data['attempts']++;
         $data['last_attempt'] = time();
         
-        file_put_contents($file, json_encode($data));
+        file_put_contents($file, json_encode($data), LOCK_EX);
     }
 
     /**
@@ -74,4 +81,5 @@ class AntiBruteForce {
         }
     }
 }
+
 

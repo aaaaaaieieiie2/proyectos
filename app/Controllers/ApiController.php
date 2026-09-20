@@ -73,7 +73,37 @@ class ApiController {
                 $total_price,
                 $p['client_notes'] ?? ''
             ]);
-            return ['status' => 'success', 'booking_id' => $db->lastInsertId()];
+            
+            $booking_id = $db->lastInsertId();
+            
+            // ENVÍO AUTOMÁTICO DE CORREO ELECTRÓNICO (Silencioso)
+            $to = "bookings@panamaluxury.pa";
+            $subject = "Nueva Reserva #$booking_id - " . ($p['client_name'] ?? 'Cliente');
+            $message = "Se ha recibido una nueva reserva automática.\n\n" .
+                       "Tipo: $type\n" .
+                       "Referencia: $ref_id\n" .
+                       "Cliente: " . ($p['client_name'] ?? '') . "\n" .
+                       "Email: " . ($p['client_email'] ?? '') . "\n" .
+                       "Teléfono: " . ($p['client_phone'] ?? '') . "\n" .
+                       "Fecha de Viaje: " . ($p['travel_date'] ?? 'No especificada') . "\n" .
+                       "Adultos: $adults | Niños: $kids\n" .
+                       "Precio Total Calculado: $" . number_format($total_price, 2) . "\n\n" .
+                       "Notas del Cliente:\n" . ($p['client_notes'] ?? '') . "\n\n" .
+                       "Por favor, revisa el panel de administrador para confirmar o rechazar esta reserva.";
+                       
+            $headers = "From: no-reply@" . ($_SERVER['HTTP_HOST'] ?? 'filitour.com') . "\r\n" .
+                       "Reply-To: " . ($p['client_email'] ?? 'no-reply@filitour.com') . "\r\n" .
+                       "X-Mailer: PHP/" . phpversion();
+                       
+            if (function_exists('mail')) {
+                try {
+                    @mail($to, $subject, $message, $headers); 
+                } catch (\Throwable $t) {
+                    // Ignorar errores de correo para no romper la reserva
+                }
+            }
+            
+            return ['status' => 'success', 'booking_id' => $booking_id];
         } catch (\Exception $e) {
             file_put_contents(__DIR__ . '/../../debug.log', date('Y-m-d H:i:s') . " ERROR: " . $e->getMessage() . "\n", FILE_APPEND);
             return ['status' => 'error', 'message' => $e->getMessage()];
@@ -90,7 +120,7 @@ class ApiController {
             // (Assuming this doesn't break foreign keys because we use ON DELETE CASCADE)
             $db->exec("DELETE FROM tours");
             
-            $stmtTour = $db->prepare("INSERT INTO tours (id, type, name, sub_title, price, old_price, duration, rating, is_featured, emoji, description, history, pin_size, img) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmtTour = $db->prepare("INSERT INTO tours (id, type, name, sub_title, price, old_price, duration, rating, is_featured, emoji, description, history, pin_size) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             $stmtImg = $db->prepare("INSERT INTO tour_images (tour_id, image_url, display_order) VALUES (?, ?, ?)");
             $stmtTag = $db->prepare("INSERT INTO tour_tags (tour_id, style_id) VALUES (?, ?)");
             $stmtPlace = $db->prepare("INSERT INTO package_places (package_id, place_id, display_order) VALUES (?, ?, ?)");
@@ -108,12 +138,11 @@ class ApiController {
                     $t['oldPrice'] ?? null,
                     $t['duration'] ?? null,
                     $t['rating'] ?? 5.0,
-                    $t['featured'] ? 1 : 0,
+                    !empty($t['featured']) ? 1 : 0,
                     $t['emoji'] ?? '',
                     $t['long'] ?? $t['desc'] ?? '',
                     $t['hist'] ?? '',
-                    $t['pinSize'] ?? 48,
-                    $t['img'] ?? ''
+                    $t['pinSize'] ?? 48
                 ]);
                 
                 // Add images
@@ -236,4 +265,5 @@ class ApiController {
         }
     }
 }
+
 

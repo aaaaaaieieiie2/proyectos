@@ -96,10 +96,13 @@ on($('book-submit'), 'click', () => {
     }
     $('book-form-view').style.display = 'none'; 
     $('book-success').style.display = 'block'; 
-    $('success-detail').textContent = 'Total ' + $('book-total').textContent + ' 👉 Se envía por Email y WhatsApp.'; 
+    $('success-detail').textContent = 'Abriendo WhatsApp automáticamente...'; 
+    
+    // REDIRECCIÓN AUTOMÁTICA A WHATSAPP
+    setTimeout(() => {
+        window.location.href = 'https://wa.me/' + COMPANY_WA + '?text=' + encodeURIComponent(bookingDetails());
+    }, 1000);
 });
-on($('send-wa'), 'click', () => window.open('https://wa.me/' + COMPANY_WA + '?text=' + encodeURIComponent(bookingDetails()), '_blank'));
-on($('send-mail'), 'click', () => { const a = document.createElement('a'); a.href = 'mailto:' + COMPANY_MAIL + '?subject=' + encodeURIComponent('Reserva: ' + currentTour.name) + '&body=' + encodeURIComponent(bookingDetails()); a.click(); });
 function closeModal(id) { const m = $(id); if (m) m.classList.remove('active'); if (id === 'video-modal') stopVideoModal(); }
 document.querySelectorAll('.modal-close').forEach(b => b.addEventListener('click', () => closeModal(b.dataset.close)));
 document.querySelectorAll('.modal-overlay').forEach(m => m.addEventListener('click', e => { if (e.target === m) { m.classList.remove('active'); if (m.id === 'video-modal') stopVideoModal(); } }));
@@ -177,9 +180,10 @@ if (tfSubmitBtn) tfSubmitBtn.addEventListener('click', () => {
     const detail = '🚐 RESERVA DE TRASLADO — FiliTour\n\n👤 Nombre: ' + name + '\n🌎 País: ' + (country || '—') + '\n📧 Email: ' + ($('tf-email') ? $('tf-email').value : '—') + '\n\n🗺️ Tipo: ' + trip + '\n📍 Origen: ' + origin + '\n🏁 Destino: ' + dest + '\n📅 Fecha: ' + df.value + ' · ' + ($('tf-time') ? $('tf-time').value : '') + '\n' + (tfTripType === 'round_trip' ? '🔄 Retorno: ' + ($('tf-return-date') ? $('tf-return-date').value : '—') + ' · ' + ($('tf-return-time') ? $('tf-return-time').value : '') + '\n' : '') + '👥 Pasajeros: ' + pax + '\n🧳 Maletas: ' + tfCounts.bags + '\n💵 Tarifa: A CONFIRMAR (se confirma por WhatsApp)\n\n📝 Notas: ' + ($('tf-notes') ? $('tf-notes').value : '—');
     const fv = $('transfer-form-view'); if (fv) fv.style.display = 'none';
     const su = $('transfer-success'); if (su) su.style.display = 'block';
-    const sd = $('tf-success-detail'); if (sd) sd.textContent = 'Traslado ' + trip + ' · ' + origin + ' → ' + dest + ' · Tarifa a confirmar 💬';
-    const wa = $('tf-send-wa'); if (wa) wa.onclick = () => window.open('https://wa.me/' + COMPANY_WA + '?text=' + encodeURIComponent(detail), '_blank');
-    const ml = $('tf-send-mail'); if (ml) ml.onclick = () => { const a = document.createElement('a'); a.href = 'mailto:' + COMPANY_MAIL + '?subject=Reserva de Traslado&body=' + encodeURIComponent(detail); a.click(); };
-
-
+    const sd = $('tf-success-detail'); if (sd) sd.textContent = 'Abriendo WhatsApp automáticamente...';
+    
+    // REDIRECCIÓN AUTOMÁTICA A WHATSAPP
+    setTimeout(() => {
+        window.location.href = 'https://wa.me/' + COMPANY_WA + '?text=' + encodeURIComponent(detail);
+    }, 1000);
 });

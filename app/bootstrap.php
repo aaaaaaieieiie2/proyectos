@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // =====================================================================
 // BOOTSTRAP: El núcleo de la aplicación.
 // Este archivo se cargará antes que cualquier otra cosa en tus scripts.
@@ -18,13 +18,7 @@ spl_autoload_register(function ($class) {
 // 2. Cargar contraseñas ocultas
 \App\Config\Env::load(__DIR__ . '/../.env');
 
-// 3. 🛡️ ACTIVAR LA MURALLA DE SEGURIDAD OBLIGATORIA
-// Todo script que inicie pasará por el filtro del WAF
-\App\Security\Waf::check();
-\App\Security\Headers::apply();
-\App\Security\RateLimiter::check(100, 60); // Anti DoS Global (100 peticiones / minuto)
-
-// 4. Iniciar Sesión de forma super estricta
+// 3. Iniciar Sesión de forma super estricta
 if (session_status() === PHP_SESSION_NONE) {
     session_name('FILITOUR_SESSION');
     session_start([
@@ -33,4 +27,21 @@ if (session_status() === PHP_SESSION_NONE) {
         'use_strict_mode' => true
     ]);
 }
+
+// Inicializar variables de sesión esenciales
+if (empty($_SESSION['csrf_token'])) {
+    \App\Security\Csrf::generate();
+}
+
+// 4. 🛡️ ACTIVAR LA MURALLA DE SEGURIDAD OBLIGATORIA
+// 🛡️ Muro 0: Honeypot (Ban permanente a bots curiosos)
+\App\Security\Honeypot::checkAndTrap();
+
+// 🛡️ Muro 1: Firewall de Aplicación (WAF)
+\App\Security\Waf::check();
+\App\Security\Headers::apply();
+
+// 🛡️ Muro 2: Límite de peticiones (Rate Limit)
+\App\Security\RateLimiter::check(100, 60); // Anti DoS Global (100 peticiones / minuto)
+
 

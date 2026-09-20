@@ -1,4 +1,4 @@
-﻿// ── Modo edición ────────────────────────────────────────────────────────────
+// ── Modo edición ────────────────────────────────────────────────────────────
 function enterEdit(onn) {
     document.body.classList.toggle('edit-mode', onn);
     const emb = $('edit-mode-btn'); if (emb) emb.innerHTML = onn ? '✅ Terminar' : '✏️ Editar CMS';
@@ -23,6 +23,7 @@ const endD = () => { isDrag = false; };
 if (editHelp) { editHelp.addEventListener('mousedown', startD); editHelp.addEventListener('touchstart', startD, { passive: false }); }
 document.addEventListener('mousemove', doD); document.addEventListener('touchmove', doD, { passive: false });
 document.addEventListener('mouseup', endD); document.addEventListener('touchend', endD);
+document.addEventListener('input', e => { const k = e.target.dataset ? e.target.dataset.txt : null; if (k) { TEXTS[k] = e.target.textContent; saveTexts(); } });
 document.addEventListener('input', e => { const k = e.target.dataset ? e.target.dataset.txt : null; if (k) TEXTS[k] = e.target.textContent; });
 document.addEventListener('click', e => { if (document.body.classList.contains('edit-mode') && e.target.closest('[data-txt]') && !e.target.closest('.nav-links') && !e.target.closest('.btn-primary')) { e.preventDefault(); e.stopPropagation(); } }, true);
 
@@ -178,6 +179,8 @@ on($('btn-save-cms'), 'click', () => {
         const pA = $('add-price-adult') ? (parseFloat($('add-price-adult').value) || 0) : (parseFloat($('add-price').value) || 0);
         const pC = $('add-price-child') ? (parseFloat($('add-price-child').value) || 0) : Math.round(pA * .5);
         const pS = $('add-price-senior') ? (parseFloat($('add-price-senior').value) || 0) : Math.round(pA * .8);
+        const isPkg = $('add-type') ? $('add-type').value === 'package' : false;
+        const activePlaces = Array.from(document.querySelectorAll('#add-places-container .tag')).map(el => el.dataset.placeId);
         const common = { name, sub: $('add-sub').value.trim(), zone: $('add-zone').value === '__new__' ? 'ciudad' : $('add-zone').value, style: $('add-style').value === '__new__' ? 'culture' : $('add-style').value, pinSize: parseInt($('add-pin-size').value, 10) || 48, price: pA, price_adult: pA, price_child: pC, price_senior: pS, oldPrice: parseInt($('add-oldprice').value, 10) || null, duration: d, emoji: $('add-emoji').value.trim() || '', img: imgs[0] || '', imgs, video: $('add-video').value.trim(), desc: $('add-short-desc').value.trim() || $('add-desc').value.trim(), long: $('add-desc').value.trim(), includes: $('add-includes').value.split(',').map(s => s.trim()).filter(Boolean), hist: $('add-hist').value.trim(), featured: $('add-featured').checked, type: isPkg ? 'package' : 'lugar', places: isPkg ? activePlaces.slice() : [] };
         document.querySelectorAll('#add-places-builder .place-builder').forEach(pb => {
             const pn = pb.querySelector('[data-pf="name"]').value.trim(); if (!pn) return;
@@ -212,7 +215,7 @@ on($('btn-save-cms'), 'click', () => {
     } else if (m === 'transfers_new') {
         const name = $('tf-new-name').value.trim(), dest = $('tf-new-dest').value.trim();
         if (!name || !dest) { alert('Nombre y destino obligatorios'); return; }
-        TRANSFERS.push({ id: 'tf-custom-' + Date.now(), name, origin: $('tf-new-origin').value.trim() || 'Aeropuerto / Hotel', destination: dest, price_one_way: parseFloat($('tf-new-oneway').value) || 0, price_round_trip: parseFloat($('tf-new-roundtrip').value) || 0, max_passengers: parseInt($('tf-new-maxpax').value, 10) || 8, emoji: $('tf-new-emoji').value.trim() || '🚐', price_basis: $('tf-new-basis') ? $('tf-new-basis').value : 'per_vehicle', desc: $('tf-new-desc').value.trim() || '', coords: [] });
+        TRANSFERS.push({ id: 'tf-custom-' + Date.now(), name, origin: $('tf-new-origin') ? $('tf-new-origin').value.trim() : 'Aeropuerto / Hotel', destination: dest, price_one_way: $('tf-new-oneway') ? (parseFloat($('tf-new-oneway').value) || 0) : 0, price_round_trip: $('tf-new-roundtrip') ? (parseFloat($('tf-new-roundtrip').value) || 0) : 0, max_passengers: $('tf-new-maxpax') ? (parseInt($('tf-new-maxpax').value, 10) || 8) : 8, emoji: $('tf-new-emoji') ? $('tf-new-emoji').value.trim() : '🚐', price_basis: $('tf-new-basis') ? $('tf-new-basis').value : 'per_vehicle', desc: $('tf-new-desc') ? $('tf-new-desc').value.trim() : '', coords: [] });
         saveTransfers(); renderTransferDestinations(); refreshTransferSelects(); $('admin-modal').classList.remove('active');
         ['tf-new-name', 'tf-new-dest', 'tf-new-origin', 'tf-new-desc'].forEach(id => { const e = $(id); if (e) e.value = ''; }); alert('✅ Traslado creado.');
     } else if (m === 'beaches') {
@@ -232,4 +235,5 @@ on($('btn-save-cms'), 'click', () => {
         ['beach-new-name', 'beach-new-zone', 'beach-new-img', 'beach-new-desc'].forEach(id => { const e = $(id); if (e) e.value = ''; }); alert('✅ Playa agregada.');
     }
 });
+
 
