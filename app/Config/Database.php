@@ -12,10 +12,10 @@ class Database {
             // Nota: En Docker, el DB_HOST suele ser el nombre del contenedor ('db').
             // Si el código corre directo en XAMPP, el host suele ser '127.0.0.1'.
             $host = $_ENV['DB_HOST'] ?? 'db';
-            $port = $_ENV['DB_PORT'] ?? '3306';
-            $db   = $_ENV['DB_NAME'] ?? 'filitour_db';
-            $user = $_ENV['DB_USER'] ?? 'AbcAG5';
-            $pass = $_ENV['DB_PASS'] ?? 'XteX554G6Y812AGCX5';
+            $port = $_ENV['DB_PORT'] ?? '';
+            $db   = $_ENV['DB_NAME'] ?? '';
+            $user = $_ENV['DB_USER'] ?? '';
+            $pass = $_ENV['DB_PASS'] ?? '';
             
             $dsn = "mysql:host=$host;port=$port;dbname=$db;charset=utf8mb4";
             
